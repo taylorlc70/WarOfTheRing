@@ -96,7 +96,10 @@ public class GameManager: MonoBehaviour {
 	void Start(){
 		regionNamesList = GetRegionNamesList();
 		SetupBoard(); //Temporary
+	}
 
+	public void StartGame(){
+		Debug.Log("starting the game");
 		//Call the first turn event
 		state = GamePhase.RecAndDraw;
 		if(RecAndDraw != null) RecAndDraw();
@@ -254,32 +257,34 @@ public class GameManager: MonoBehaviour {
 		singlePlayerGame = false;
 	}
 
-	public static void AdvanceGamePhase(){
+	public void AdvanceGamePhase(){
 		switch (state){
 			case GamePhase.RecAndDraw:
 				state = GamePhase.Fellowship;
 				if(Fellowship != null) Fellowship();
 				break;
 			case GamePhase.Fellowship:
-				if(Hunt != null) Hunt();
 				state = GamePhase.Hunt;
+				if(Hunt != null) Hunt();
 				break;
 			case GamePhase.Hunt:
-				if(Rolling != null) Rolling();
 				state = GamePhase.Rolling;
+				if(Rolling != null) Rolling();
 				break;
 			case GamePhase.Rolling:
-				if(Action != null) Action();
 				state = GamePhase.Action;
+				if(Action != null) Action();
 				break;
 			case GamePhase.Action:
-				if(VictoryCheck != null) VictoryCheck();
 				state = GamePhase.VictoryCheck;
+				if(VictoryCheck != null) VictoryCheck();
+
 				break;
 			case GamePhase.VictoryCheck:
-				if(RecAndDraw != null) RecAndDraw();
 				state = GamePhase.RecAndDraw;
+				if(RecAndDraw != null) RecAndDraw();
 				break;
 		}
+		Debug.Log("the phase is now " +state.ToString());
 	}
 }

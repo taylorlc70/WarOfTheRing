@@ -11,7 +11,21 @@ public class FreeDice : Dice {
 		player = GameObject.FindObjectOfType<FP_Player>();
 		myImg = gameObject.GetComponent<Image>();
 		modalPrefab = Resources.Load("Prefabs/FreeModal") as GameObject;
-	}	
+	}
+
+	void OnEnable(){
+		GameManager.Rolling += this.Roll;
+		GameManager.VictoryCheck += this.Dispose;
+		TurnManager.FreeTurn += this.SetInteractableTrue;
+		TurnManager.ShadowTurn += this.SetInteractableFalse;
+	}
+
+	void OnDisable(){
+		GameManager.Rolling -= this.Roll;
+		GameManager.VictoryCheck -= this.Dispose;
+		TurnManager.FreeTurn -= this.SetInteractableTrue;
+		TurnManager.ShadowTurn -= this.SetInteractableFalse;
+	}
 
 	public override void SetButtons(int index){
 		buttons.Clear();

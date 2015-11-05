@@ -18,6 +18,10 @@ public class Player : MonoBehaviour {
 	//float panelTop = 10.0f;
 	//float diceWidth = 58.0f;
 
+	public void DrawCardsStart(){
+		Debug.Log(gameObject.name + " is drawing cards");
+	}
+
 	public void DrawCard(int num, iCard type){
 		while(num-- > 0 && handCount < MAX_HAND_SIZE){
 			handCount++;
@@ -29,6 +33,7 @@ public class Player : MonoBehaviour {
 	}
 	
 	public void RecoverDice(){
+		Debug.Log(gameObject.name + " is recovering dice");
 		while(maxDice-- > 0){
 			diceCount++;
 			GameObject newDice = Instantiate (Resources.Load(dicePrefabPath), new Vector2(0,0), Quaternion.Euler (Vector3.zero)) as GameObject;
@@ -52,5 +57,4 @@ public class Player : MonoBehaviour {
 	public void RollDice(){
 
 	}
-
 }

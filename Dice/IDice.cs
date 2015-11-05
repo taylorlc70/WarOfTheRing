@@ -7,4 +7,6 @@ public interface IDice {
 	void CloseMenu();
 	void Roll();
 	void SetButtons(int index);
+	void SetInteractableTrue();
+	void SetInteractableFalse();
 }

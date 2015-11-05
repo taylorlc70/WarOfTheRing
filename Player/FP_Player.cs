@@ -12,4 +12,14 @@ public class FP_Player : Player {
 	void Update () {
 	
 	}
+
+	void OnEnable(){
+		GameManager.RecAndDraw += this.RecoverDice;
+		GameManager.RecAndDraw += this.DrawCardsStart;
+	}
+
+	void OnDisable(){
+		GameManager.RecAndDraw -= this.RecoverDice;
+		GameManager.RecAndDraw -= this.DrawCardsStart;
+	}
 }
