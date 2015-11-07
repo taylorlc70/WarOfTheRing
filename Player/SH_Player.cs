@@ -3,13 +3,20 @@ using System.Collections;
 
 public class SH_Player : Player {
 
-	// Use this for initialization
-	void Start () {
-	
+	void Awake () {
+		maxDice = 7;
+		rings = 0;
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+
+	public override void Recruit(){
+
+	}
+
+	public override void AddDice(){
+		Debug.Log("calling add dice for SH player. Count: " + diceCount);
+	}
+
+	public override void VictoryCheck(){
+		diceCount = 0;
 	}
 }

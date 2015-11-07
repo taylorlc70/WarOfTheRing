@@ -98,6 +98,14 @@ public class GameManager: MonoBehaviour {
 		SetupBoard(); //Temporary
 	}
 
+	public void PlayAsFree(){
+
+	}
+
+	public void PlayAsShadow(){
+
+	}
+
 	public void StartGame(){
 		Debug.Log("starting the game");
 		//Call the first turn event

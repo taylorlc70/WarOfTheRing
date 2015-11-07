@@ -3,23 +3,20 @@ using System.Collections;
 
 public class FP_Player : Player {
 
-	// Use this for initialization
-	void Start () {
+	void Awake () {
 		maxDice = 4;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+		rings = 3;
 	}
 
-	void OnEnable(){
-		GameManager.RecAndDraw += this.RecoverDice;
-		GameManager.RecAndDraw += this.DrawCardsStart;
+	public override void Recruit(){
+
 	}
 
-	void OnDisable(){
-		GameManager.RecAndDraw -= this.RecoverDice;
-		GameManager.RecAndDraw -= this.DrawCardsStart;
+	public override void AddDice(){
+		Debug.Log("calling add dice for FP player. Count: " + diceCount);
+	}
+
+	public override void VictoryCheck(){
+		diceCount = 0;
 	}
 }
