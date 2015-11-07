@@ -22,11 +22,6 @@ public class UI_Modal : MonoBehaviour {
 			}
 		}
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 
 	void Dispose(){
 		Destroy (gameObject);
