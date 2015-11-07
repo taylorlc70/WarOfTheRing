@@ -2,6 +2,9 @@
 using System.Collections;
 using UnityEngine.UI;
 
+/*
+	The DiceView class is for Human players - it's the actual "view" on screen
+ */
 public class DiceView : Dice {
 
 	public void SetInteractableTrue(){

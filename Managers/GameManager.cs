@@ -53,7 +53,7 @@ public class GameManager: MonoBehaviour {
 	}
 		
 
-	public static GamePhase state;
+	public static GamePhase currentPhase;
 
 	// Variables
 	//--------------------------------
@@ -71,6 +71,7 @@ public class GameManager: MonoBehaviour {
 	// Events
 	//--------------------------------
 	public delegate void PhaseSwitchEvent();
+	public static event PhaseSwitchEvent GamePhaseSwitched;
 	public static event PhaseSwitchEvent RecAndDraw;
 	public static event PhaseSwitchEvent Fellowship;
 	public static event PhaseSwitchEvent Hunt;
@@ -109,7 +110,8 @@ public class GameManager: MonoBehaviour {
 	public void StartGame(){
 		Debug.Log("starting the game");
 		//Call the first turn event
-		state = GamePhase.RecAndDraw;
+		currentPhase= GamePhase.RecAndDraw;
+		if(GamePhaseSwitched != null) GamePhaseSwitched();
 		if(RecAndDraw != null) RecAndDraw();
 	}
 	
@@ -266,33 +268,36 @@ public class GameManager: MonoBehaviour {
 	}
 
 	public void AdvanceGamePhase(){
-		switch (state){
+		switch (currentPhase){
 			case GamePhase.RecAndDraw:
-				state = GamePhase.Fellowship;
+				currentPhase = GamePhase.Fellowship;
 				if(Fellowship != null) Fellowship();
 				break;
 			case GamePhase.Fellowship:
-				state = GamePhase.Hunt;
+				currentPhase = GamePhase.Hunt;
 				if(Hunt != null) Hunt();
 				break;
 			case GamePhase.Hunt:
-				state = GamePhase.Rolling;
+				currentPhase = GamePhase.Rolling;
 				if(Rolling != null) Rolling();
 				break;
 			case GamePhase.Rolling:
-				state = GamePhase.Action;
+				currentPhase = GamePhase.Action;
 				if(Action != null) Action();
 				break;
 			case GamePhase.Action:
-				state = GamePhase.VictoryCheck;
+				currentPhase = GamePhase.VictoryCheck;
 				if(VictoryCheck != null) VictoryCheck();
 
 				break;
 			case GamePhase.VictoryCheck:
-				state = GamePhase.RecAndDraw;
+				currentPhase = GamePhase.RecAndDraw;
 				if(RecAndDraw != null) RecAndDraw();
 				break;
 		}
-		Debug.Log("the phase is now " +state.ToString());
+		if(GamePhaseSwitched != null){
+			GamePhaseSwitched();
+		}
+		Debug.Log("the phase is now " + currentPhase.ToString());
 	}
 }
