@@ -2,12 +2,12 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class WorldPopup : MonoBehaviour {
+public class UI_Modal : MonoBehaviour {
 	
 	void Awake(){
-		WorldPopup[] others = GameObject.FindObjectsOfType<WorldPopup>();
+		UI_Modal[] others = GameObject.FindObjectsOfType<UI_Modal>();
 		if(others.Length > 0){
-			foreach(WorldPopup other in others){
+			foreach(UI_Modal other in others){
 				if(other != this){
 					Destroy(other.gameObject);
 				}
@@ -23,4 +23,5 @@ public class WorldPopup : MonoBehaviour {
 	void Dispose(){
 		Destroy (gameObject);
 	}
+
 }

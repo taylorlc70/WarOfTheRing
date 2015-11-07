@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class ShadowDiceView : Dice {
+public class ShadowDiceView : DiceView {
 
 	Player player;
 
@@ -13,9 +13,23 @@ public class ShadowDiceView : Dice {
 		modalPrefab = Resources.Load("Prefabs/ShadowModal") as GameObject;
 	}
 
-	public override void SetButtons(int index){
+	void OnEnable(){
+		GameManager.Rolling += this.Roll;
+		GameManager.VictoryCheck += this.Dispose;
+		TurnManager.ShadowAction += this.SetInteractableTrue;
+		TurnManager.FreeAction += this.SetInteractableFalse;
+	}
+	
+	void OnDisable(){
+		GameManager.Rolling -= this.Roll;
+		GameManager.VictoryCheck -= this.Dispose;
+		TurnManager.ShadowAction -= this.SetInteractableTrue;
+		TurnManager.FreeAction -= this.SetInteractableFalse;
+	}
+
+	public override void SetAvailableActions(int index){
 		buttons.Clear();
-		Debug.Log ("Shadow setbuttons");
+		Debug.Log ("Shadow SetAvailableActions");
 		switch(index){
 		case 0: //char
 			CharButtons();

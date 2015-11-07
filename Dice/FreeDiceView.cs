@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class FreeDiceView : Dice {
+public class FreeDiceView : DiceView {
 
 	Player player;
 
@@ -16,20 +16,20 @@ public class FreeDiceView : Dice {
 	void OnEnable(){
 		GameManager.Rolling += this.Roll;
 		GameManager.VictoryCheck += this.Dispose;
-		TurnManager.FreeTurn += this.SetInteractableTrue;
-		TurnManager.ShadowTurn += this.SetInteractableFalse;
+		TurnManager.FreeAction += this.SetInteractableTrue;
+		TurnManager.ShadowAction += this.SetInteractableFalse;
 	}
 
 	void OnDisable(){
 		GameManager.Rolling -= this.Roll;
 		GameManager.VictoryCheck -= this.Dispose;
-		TurnManager.FreeTurn -= this.SetInteractableTrue;
-		TurnManager.ShadowTurn -= this.SetInteractableFalse;
+		TurnManager.FreeAction -= this.SetInteractableTrue;
+		TurnManager.ShadowAction -= this.SetInteractableFalse;
 	}
 
-	public override void SetButtons(int index){
+	public override void SetAvailableActions(int index){
 		buttons.Clear();
-		Debug.Log ("Free setbuttons");
+		Debug.Log ("Free SetAvailableActions");
 		switch(index){
 		case 0: //char
 			CharButtons();

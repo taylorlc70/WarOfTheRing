@@ -3,10 +3,8 @@ using System.Collections;
 
 public interface IDice {
 
-	void SpawnMenu();
-	void CloseMenu();
+	void SelectDie();
+	void DeselectDie();
 	void Roll();
-	void SetButtons(int index);
-	void SetInteractableTrue();
-	void SetInteractableFalse();
+	void SetAvailableActions(int index);
 }

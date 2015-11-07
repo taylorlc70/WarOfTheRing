@@ -4,29 +4,9 @@ using System.Collections.Generic;
 using UnityEngine.EventSystems;
 
 public class UserInput : MonoBehaviour {
-	private static UserInput instance;
-	public static UserInput Instance {
-		get{
-			if (instance == null) {
-				instance = GameObject.FindObjectOfType<UserInput>();
-				DontDestroyOnLoad(instance.gameObject);
-			} 
-			return instance;
-		}
-	}
 
 	public static Dice chosenDice;
 	private List<Army> chosenArmies;
-	
-	void Awake () {
-		if (instance == null) {
-			instance = this;
-		} else {
-			if(this != instance){
-				Destroy(instance);
-			}
-		}
-	}
 
 	public void InitiateArmyMovement(List<Army> armies){
 		chosenArmies = armies;

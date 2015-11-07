@@ -38,7 +38,6 @@ public abstract class Player : MonoBehaviour {
 	}
 
 	public void MoveOrAttack(){
-		UserInput.Instance.InitiateArmyMovement(myArmies);
 	}
 	
 	void OnEnable(){
