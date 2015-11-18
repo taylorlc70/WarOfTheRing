@@ -14,33 +14,37 @@ public class UI_Expand : MonoBehaviour {
 	public bool HideUntilFull = false;
 	public bool AppearOnEnable = true;
 	private RectTransform myRect;
-
-
+	
 	void Start () {
 		finalPanelAspect = desiredWidth/desiredHeight;
 		myRect = gameObject.GetComponent<RectTransform>();
 		collapsedWidth= myRect.sizeDelta.x;
 		collapsedHeight = myRect.sizeDelta.y;
 		if(HideUntilFull){
-			HideChildren(transform);
+			//HideChildren(transform);
 		}
 		if(AppearOnEnable){
 			StartCoroutine("_inflate");
 		}
 	}
 
-	public void HideChildren(Transform trans){
-		foreach(Transform child in trans){
-			child.gameObject.SetActive(false);
-			HideChildren(child);
+	public void HideChildren(){
+		Disappearable[] children = gameObject.GetComponentsInChildren<IDisappearableUI>();
+		foreach(Disappearable child in children){
+			child.Disappear();
 		}
 	}
 	
-	public void ShowChildren(Transform trans){
-		foreach(Transform child in trans){
-			child.gameObject.SetActive(true);
-			ShowChildren(child);
-		}
+	public void ShowChildren(){
+
+	}
+
+	public void StartDeflateTimer(){
+		StartCoroutine("_deflateTimer");
+	}
+
+	public void StopDeflateTimer(){
+		StopCoroutine("_deflateTimer");
 	}
 
 	public void Inflate(){
@@ -48,10 +52,12 @@ public class UI_Expand : MonoBehaviour {
 	}
 
 	public void Deflate(){
-		if(HideUntilFull){
-			HideChildren(transform);
-		}
 		StartCoroutine("_deflate");
+	}
+
+	private IEnumerator _deflateTimer(){
+		yield return new WaitForSeconds(3);
+		Deflate ();
 	}
 
 	private IEnumerator _inflate(){
@@ -70,11 +76,13 @@ public class UI_Expand : MonoBehaviour {
 			yield return null; 
 		}
 		myRect.sizeDelta = new Vector2(desiredWidth, desiredHeight);
-		ShowChildren(transform);
+		//ShowChildren(transform);
 	}
 
 	private IEnumerator _deflate(){
-		Debug.Log("deflating...");
+		if(HideUntilFull){
+			//HideChildren(transform);
+		}
 		float wd = myRect.sizeDelta.x;
 		float hd = myRect.sizeDelta.y;
 		while(wd > collapsedWidth || hd > collapsedHeight){
